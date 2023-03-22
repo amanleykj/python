@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Dashboard</title>
+</head>
+<body>
+
+<h1>This is the Dashboard</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>F_Name</th>
+            <th>L_Name</th>
+            <th>Email</th>
+            <th>Occupation</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for friend in friends %}
+        <!-- looking through all friends that have been received and put into the list on server.py file -->
+        <tr>
+            <td>{{friend.id}}</td>
+            <td>{{friend.first_name}}</td>
+            <td>{{friend.last_name}}</td>
+            <td>{{friend.email}}</td>
+            <td>{{friend.occupation}}</td>
+            <td>{{friend.password}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+INSERT INTO dojos (name, created_at, updated_at) 
+VALUES("mastudo", NOW(), NOW());
+
+INSERT INTO dojos (name, created_at, updated_at) 
+VALUES("azabujuban", NOW(), NOW());
+
+INSERT INTO dojos (name, created_at, updated_at) 
+VALUES("tomigaya", NOW(), NOW());
+
+DELETE FROM dojos WHERE id = "5";
+
+DELETE FROM dojos WHERE id = "6";
+
+DELETE FROM dojos WHERE id = "7";
+
+INSERT INTO dojos (name, created_at, updated_at) 
+VALUES("kamihongo", NOW(), NOW());
+
+INSERT INTO dojos (name, created_at, updated_at) 
+VALUES("nishiogikubo", NOW(), NOW());
+
+INSERT INTO dojos (name, created_at, updated_at) 
+VALUES("kichijoji", NOW(), NOW());
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id) 
+VALUES('John', 'ValJean', 35, NOW(), NOW(), 9);
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id) 
+VALUES('Beeeen', 'Meat', 21, NOW(), NOW(), 8);
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id) 
+VALUES('Jessica', 'Kickingsons', 45, NOW(), NOW(), 9);
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id) 
+VALUES('Bob', 'GULrajani', 70, NOW(), NOW(), 9);
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id) 
+VALUES('Kenji', 'Matsumoto', 45, NOW(), NOW(), 8);
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id) 
+VALUES('Mai', 'Nishiyama', 45, NOW(), NOW(), 8);
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id) 
+VALUES('Misaki', 'Oota', 45, NOW(), NOW(), 10);
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id) 
+VALUES('Ikuko', 'Nagahara', 45, NOW(), NOW(), 10);
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id) 
+VALUES('Mas', 'Ida', 45, NOW(), NOW(), 10);
+
+SELECT * FROM ninjas WHERE dojo_id = 8;
+
+SELECT * FROM ninjas WHERE dojo_id = 9;
+
+SELECT * FROM ninjas WHERE dojo_id = 10;
+
+SELECT first_name, last_name, age, dojos.name FROM ninjas LEFT JOIN dojos ON ninjas.dojo_id = dojos.id WHERE ninjas.id = 12;

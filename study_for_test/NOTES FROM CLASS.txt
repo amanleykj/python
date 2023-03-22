@@ -1,0 +1,36 @@
+
+import re
+
+
+
+EMAIL_REGEX = bcrypt = Bcrypt(app)   EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+
+@staticmethod
+def validate_user(form):
+    is_valid = True
+    if len(form['first_name']) < 3:
+        is_valid = False
+        flash("Make your name longer!")
+
+be sure to import flash
+
+    if len(form['last_name']) < 3:
+        is_valid = False
+        flash("Make your name longer!")
+
+    if len(form['email']) < 3:
+        is_valid = False
+        flash("Make your name longer!")
+
+    if not EMAIL_REGEX.match(form['email']):
+        is_valid = False
+        flash("Email must be valid")
+
+    if len(form['password']) < 8:
+        is_valid = False
+        flash("Password must be at least 8 characters!")
+
+    if not form['password'] == form['confirm_password']:
+    is_valid = False
+    flash("Passwords do not match.")
+    return is_valid

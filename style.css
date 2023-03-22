@@ -1,0 +1,16 @@
+* {
+    background-color: orangered;
+    color: whitesmoke;
+    margin: auto 0;
+}
+
+button {
+    border: solid 5px grey;
+    box-shadow: 5px 5px 5px;
+}
+
+#First {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px;
+}

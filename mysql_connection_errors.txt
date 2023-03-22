@@ -1,0 +1,80 @@
+#1
+NameError: name 'MySQLConnecton' is not defined
+How: misspelled return MySQLConnection as return MySQLConnecton
+
+#2
+SyntaxError: invalid syntax
+How: misspelled finally as fidnally
+
+#3
+ModuleNotFoundError: No module named 'pymysql'
+How: input an incorrect user for the pymysql section
+
+#4
+ModuleNotFoundError: No module named 'pymysql'
+How: inserted a paramter in the fetchall function where no parameter was before
+
+#5
+ModuleNotFoundError: No module named 'pymysql'
+How: misspelled the word return result and return resultt
+
+#6
+ModuleNotFoundError: No module named 'pymysql'
+How: misspelled the word self as sel
+
+#7
+SyntaxError: invalid syntax
+How: misspelt the word import as iport
+
+#8
+ModuleNotFoundError: No module named 'pymysql'
+How: misspelt db as d
+
+#9
+SyntaxError: invalid syntax
+How: Changed an if condtional statement to while
+
+#10
+ModuleNotFoundError: No module named 'pymysql'
+How: changed autocommit True to autocommit False
+
+#11
+TypeError: 'bool' object is not iterable
+How: misspelled execute and find functions
+
+#12
+NameError: name 'connection' is not defined
+How: misspelled query_db define section and misspelled connection as connesction
+
+#13
+TypeError: 'bool' object is not callable
+How: changed self.connection.close to self.connection.open
+
+#14
+AttributeError: module 'pymysql.cursors' has no attribute 'DicCursor'
+How: changed DictCursor to DicCursor
+
+#15
+Complete crash of server
+How: changed class MySQLConnection to classss MySQLConnection
+
+#16
+TypeError: Connection.__init__() got an unexpected keyword argument 'auser'
+How: changed user to auser
+note* Also changed other parts to apassword and adb and acharset but only the auser part came back 
+
+#17
+SyntaxError: invalid syntax
+How: Changed a try to if
+
+#18
+TypeError: 'bool' object is not iterable
+How: Changed a None value to a True value
+
+#19
+ImportError: cannot import name 'connectToMySQL' from 'mysqlconnection'
+How: Took out an entire method in the class
+
+#20
+SyntaxError: expected ':'
+How: Took out the : after a method was being called

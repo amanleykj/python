@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <title>Sasquatch Websighting</title>
+</head>
+<body style="padding: 15px;">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <p style="color: red; font-style: italic;">{{message}}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <div>
+                    <h1>Sasquatch Websighting</h1>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                    <a href="/new_sighting" class="navbar-brand">Report a Sighting</a>
+                    <a href="/logout" class="navbar-brand"> Logout </a>
+                </div>
+            </div>
+        </nav>
+
+    <h2>Reported Sightings</h2>
+    
+    <div style="height: 400px; overflow: auto; border: 2px solid black; padding: 25px;">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Where/When</th>
+                    <th>Reported by</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if all_sightings %}
+                {% for single_sighting in all_sightings %}
+                <tr>
+                    <td>{{ single_sighting.location }} - {{ single_sighting.date_sighting.strftime('%m/%d/%Y') }}</td>
+                    <td>{{ single_sighting.creator.first_name }} {{ single_sighting.creator.last_name }}</td>
+                    <td>
+                        {% if session['user_id'] == single_sighting.creator.id %}
+                        <div style="display: flex; flex-direction: row;">
+                            <form action="/edit_sighting/{{ single_sighting.id }}">
+                                <button type="submit" class="btn btn-primary" style="margin: 5px;">Edit</button>
+                            </form>
+                            <form action="/delete/{{ single_sighting.id }}">
+                                <button type="submit" class="btn btn-primary" style="margin: 5px;">Delete</button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <form action="/show_sighting/{{ single_sighting.id }}">
+                            <button type="submit" class="btn btn-success" style="margin-top: 5px;">View</button>
+                        </form>
+                        {% endif %}
+                {% endfor %}
+                {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    
+</body>
+</html>

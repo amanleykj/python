@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Counter</title>
+</head>
+
+<body>
+
+    <table>
+        <h2>
+            How many clicks :  {{ total_now }} 
+        </h2>
+    </table>
+
+
+
+
+
+    <table>
+    <form action="/count" method="post">
+        <button class="buttons">
+        <input type="button" hidden="action" value="add">
+            Add
+        </button>
+        <button class="buttons">
+        <input type="button" hidden="action" value="subtract")>
+            Subtract
+        </button>
+        <button class="buttons">
+        <input type="button" hidden="action" value="reset")>
+            RESET ALL
+        </button>
+    </form>
+    </table>
+
+</body>
+</html>

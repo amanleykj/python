@@ -1,0 +1,12 @@
+
+*** Form to create a post method and submit basic user information
+
+
+<form action="/users" method="post">
+    <input type="hidden" name="action" value="register">
+    <label for="name">Name: </label>
+    <input type="text" name="name">
+    <label for="email">Email: </label>
+    <input type="text" name="email">
+    <input type="submit" value="create user">
+</form>

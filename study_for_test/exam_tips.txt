@@ -1,0 +1,234 @@
+I have an issue getting information that I need for proper redirects and jinja usage. What am I doing wrong?
+
+Confirm my method of confirming isalpha() is suitable
+
+How to ensure that success page can't be reached after session.clear is performed.
+
+RECIPES IS KEY TO DO BEFOREHAND
+
+The user_id is required when creating a recipe. How do I go about including this???
+
+Cameron Week 6 Day Two covers Ohana Rideshares and good information to know for the RED BELT exam.
+Also, covered in Week 5 Day 1
+
+Be sure to save your ERD as a .mwb file in your exam file.
+
+Watch final 30 minutes of 2/16 lesson
+
+Finish final lesson of Week 6
+
+Confirm how to create likes (many-to-many relationships most likely)
+
+Confirm how to delete users in a dojo
+
+How to delete items that are linked in a one-to-many relationship
+
+How to delete ninjas from dojo page and stay on Dojo page (currently redirecting to '/')
+
+Ask why the id inclusion on hidden form submission make the difference for the update ninja task
+
+Procedure:
+
+Confirm how many pages
+
+python3 -m pipenv install flask
+python3 -m pipenv install flask-bcrypt
+python3 -m pipenv install pymysql
+python3 -m pipenv shell
+
+THEN python server.py
+
+
+Finish
+Recipes
+Books
+Ohana Rideshares
+
+
+__init__.py
+
+from flask import Flask
+
+app = Flask(__name__)
+
+app.secret_key = "try_again_tryttt"
+
+
+
+server.py
+
+from flask_app import app
+
+from flask_app.controllers import ninja_controller, dojo_controller
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+
+mysqlconnection.py
+
+import pymysql.cursors
+# this class will give us an instance of a connection to our database
+class MySQLConnection:
+    def __init__(self, db):
+
+        connection = pymysql.connect(host = 'localhost',
+                                    user = 'root', 
+                                    password = '01Efilguht!', 
+                                    db = db,
+                                    charset = 'utf8mb4',
+                                    cursorclass = pymysql.cursors.DictCursor,
+                                    autocommit = True)
+# establish the connection to the database
+        self.connection = connection
+# the method to query the database
+    def query_db(self, query, data=None):
+        with self.connection.cursor() as cursor:
+            try:
+                query = cursor.mogrify(query, data)
+                print("Running Query:", query)
+    
+                cursor.execute(query, data)
+                if query.lower().find("insert") >= 0:
+# INSERT queries will return the ID NUMBER of the row inserted
+                    self.connection.commit()
+                    return cursor.lastrowid
+                elif query.lower().find("select") >= 0:
+# SELECT queries will return the data from the database as a LIST OF DICTIONARIES
+                    result = cursor.fetchall()
+                    return result
+                else:
+# UPDATE and DELETE queries will return nothing
+                    self.connection.commit()
+            except Exception as e:
+# if the query fails the method will return FALSE
+                print("Something went wrong", e)
+                return False
+            finally:
+# close the connection
+                self.connection.close() 
+# connectToMySQL receives the database we're using and uses it to create an instance of MySQLConnection
+def connectToMySQL(db):
+    return MySQLConnection(db)
+
+
+
+
+SCRIPT/CSS COPY
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+
+
+
+model
+
+from flask_app.config.mysqlconnection import connectToMySQL
+from .ninja_model import Ninja
+
+class Dojo:
+    db = 'D_J'
+
+    def __init__(self, data_row):
+        self.id = data_row['id']
+        self.name = data_row['name']
+        self.created_at = data_row['created_at']
+        self.updated_at = data_row['updated_at']
+        self.ninjas = []
+
+    @classmethod
+    def save(cls, data_row):
+        query = """
+        INSERT INTO D_J.dojos (name) VALUES (%(name)s)
+        """
+        result = connectToMySQL(cls.db).query_db(query, data_row)
+        print("THIS DOJO HAS SAVED!")
+        return result
+
+    @classmethod
+    def getAll(cls):
+        query = "SELECT * FROM D_J.dojos;"
+        results = connectToMySQL(cls.db).query_db(query)
+        print(results)
+        all_dojos = []
+        for data_row in results:
+            all_dojos.append(cls(data_row))
+        return all_dojos
+
+    @classmethod
+    def getOnebyDojoID(cls, data_row):
+        query = """
+        SELECT * FROM D_J.ninjas LEFT JOIN D_J.dojos ON ninjas.dojo_id = 
+        dojos.id WHERE ninjas.id = %(id)s;
+        """
+        result = connectToMySQL(cls.db).query_db(query, data_row)
+        if result:
+            return cls(result[0])
+        return False
+# I'm not sure if this is going to work.
+
+    @classmethod
+    def getOne(cls, data_row):
+        query = "SELECT * FROM D_J.dojos WHERE id = %(id)s"
+        result = connectToMySQL(cls.db).query_db(query, data_row)
+        if result:
+            return cls(result[0])
+        return False
+    
+    @classmethod
+    def destroy(cls, data_row):
+        query = "DELETE FROM D_J.dojos WHERE id = %(id)s;"
+        result = connectToMySQL(cls.db).query_db(query, data_row)
+        return result
+
+    @classmethod
+    def get_first_and_last(cls, row):
+        query = """
+        SELECT * FROM D_J.dojos LEFT JOIN D_J.ninjas 
+        ON D_J.dojos.id = D_J.ninjas.dojo_id WHERE dojos.id = %(id)s;
+        """
+        result = connectToMySQL(cls.db).query_db(query, row)
+        dojo = cls(result[0])
+        for row in result:
+            final = {
+            'id': row['ninjas.id'],
+            'first_name': row['first_name'],
+            'last_name': row['last_name'],
+            'age': row['age'],
+            'dojo_id' : row['dojo_id'],
+            'created_at': row['ninjas.created_at'],
+            'updated_at': row['ninjas.updated_at'] 
+            }
+            dojo.ninjas.append( Ninja(final) )
+        return dojo
+
+    @classmethod
+    def get_dojo_with_ninjas(cls, data):
+        query = """
+        SELECT * FROM D_J.dojos LEFT JOIN D_J.ninjas.id ON ninjas.dojo_id = D_J.dojos.id 
+        WHERE D_J.dojos.id = %(id)s;
+        """
+        results = connectToMySQL(cls.db).query_db( query, data)
+        dojo = cls(results[0])
+        for row_for_db in results:
+            ninja_data = {
+                "id" : row_for_db['ninjas.id'],
+                "first_name" : row_for_db['first_name'],
+                "last_name" : row_for_db['last_name'],
+                "age" : row_for_db['age'],
+                "created_at" : row_for_db['ninjas.created_at'],
+                "updated_at" : row_for_db['ninjas.updated_at']
+            }
+            dojo.ninjas.append(data.Ninja(ninja_data))
+
+        return dojo
+
+
+DISPLAYING TABLES
+
+table, thead, tr, th
+	, tbody, tr, td

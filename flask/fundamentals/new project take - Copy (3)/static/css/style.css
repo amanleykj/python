@@ -1,0 +1,16 @@
+div {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+div input {
+    width: 250px;
+}
+
+button {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin-left: 15px;
+}

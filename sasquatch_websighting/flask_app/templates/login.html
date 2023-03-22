@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <title>Sasquatch Websighting</title>
+</head>
+
+<body style="padding: 15px; background-color: gainsboro;">
+    
+    <p>{% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p style="color: red; font-style: italic;">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </p>
+
+    <div class="mb-3" style="padding: 10px; width: 1000px; background-color: #4BAFD3; border-radius: 15px;">
+        
+        <h2>Register</h2>
+
+        <form action="/create_user" method="post">
+            
+            <input type="hidden" name="action" value="create_user">
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" style="width: 500px;" name="first_name">
+                <label for="floatingInput">First Name: </label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" style="width: 500px;" name="last_name">
+                <label for="floatingInput">Last Name: </label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" style="width: 500px;" name="email">
+                <label for="floatingInput">Email: </label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingInput" style="width: 500px;" name="password">
+                <label for="floatingInput">Password: </label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingInput" style="width: 500px;" name="confirm_password">
+                <label for="floatingInput">Confirm Password: </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Register</button>
+
+        </form>   
+
+    </div>
+
+    
+    <div style="padding: 10px; width: 1000px; border-radius: 15px; background-color: #74C1DD;">
+        
+        <h2>Login</h2>
+
+        <form action="/user_login" method="post">
+
+            <input type="hidden" name="action" value="user_login">
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" style="width: 500px;" name="email">
+                <label for="floatingInput">Email: </label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingInput" style="width: 500px;" name="password">
+                <label for="floatingInput">Password: </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+
+        </form>    
+    </div>
+
+</body>
+</html>

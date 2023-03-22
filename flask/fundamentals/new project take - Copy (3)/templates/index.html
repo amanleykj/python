@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Welcome Index Page</title>
+</head>
+
+<body>
+
+    <form action="/form_submit" method = "POST">
+        
+        <input type="hidden" name="action" value="register">
+        <!-- these are used so the back-end knows what's coming on the frontend
+        the backend can distinguish the different forms by the hidden input -->
+        <h1>Create Account</h1>
+
+        <div>
+            <label for="first">First Name: </label>
+            <input type="text" name="first_name" id="first" placeholder="first name">
+        </div>
+
+        <div>
+            <label for="last">Last Name: </label> 
+            <input type="text" name="last_name" id="last" placeholder="last name">
+            <!-- the key will be the name and the input will be the value -->
+        </div>
+
+        <div>
+            <label for="email">Email: </label>
+            <input type="text" name="email" id="email" placeholder="email address">
+        </div>
+
+        <div>
+            <label for="occupation">Occupation: </label>
+            <input type="text" name="occupation" id="occupation" placeholder="your occupation">
+        </div>
+
+        <div>
+            <label for="password">Password: </label>
+            <input type="text" name="password" id="pass" placeholder="password here">
+        </div>
+
+        <button type="submit">Create Account</button>
+
+    </form>
+    
+    <form action="/form_submit" method = "POST">
+            <input type="hidden" name="action" value="login">
+            <!-- same thing here but here we have the value of login that will distinguish on the backend which -->
+            <!-- information to take -->
+            <h1>Login</h1>
+
+            <div>
+                <label for="email">Email: </label>
+                <input type="text" name="email" id="email"> 
+            </div>
+
+            <div>
+                <label for="password">Password: </label>
+                <input type="text" name="password" id="pass">
+            </div>
+
+            <button type="submit">Login</button>
+
+    </form>
+
+</body>
+</html>

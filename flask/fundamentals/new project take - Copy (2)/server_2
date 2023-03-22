@@ -1,0 +1,10 @@
+from server_1 import BankAccount, User
+
+standard = BankAccount(1000, .05)
+gold = BankAccount(2000, .08)
+platinum = BankAccount(5000, .12)
+
+
+anthony_user = User("Anthony", "Manley", "maka@mail.com")
+
+anthony_user.display_user_balance()
